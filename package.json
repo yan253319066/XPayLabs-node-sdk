@@ -1,6 +1,6 @@
 {
   "name": "@xpaylabs/node-sdk",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Self-hosted, non-custodial crypto payment gateway SDK for Node.js. Accept USDT/USDC on TRON TRC20, EVM chains (Ethereum, BNB Chain, Polygon, Arbitrum, Optimism, Base), and SUI with zero gateway fees.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
