@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: "XPay Labs Node.js SDK — Self-Hosted Crypto Payment Gateway for Node.js"
+message: "If you use this SDK in your research or project, please cite it as below."
+type: software
+authors:
+  - given-names: XPay Labs Team
+    website: "https://www.xpaylabs.com"
+identifiers:
+  - type: url
+    value: "https://github.com/yan253319066/XPayLabs-node-sdk"
+  - type: url
+    value: "https://www.npmjs.com/package/@xpaylabs/node-sdk"
+repository-code: "https://github.com/yan253319066/XPayLabs-node-sdk"
+abstract: "Official Node.js/TypeScript SDK for the XPay Labs self-hosted, non-custodial crypto payment gateway. Create collection/payout orders, verify HMAC-signed webhooks, and query supported tokens on TRON, EVM chains, and SUI."
+keywords:
+  - crypto-payment-gateway
+  - self-hosted
+  - non-custodial
+  - nodejs
+  - typescript
+  - usdt
+  - tron
+  - evm
+  - blockchain
+  - payment-sdk
+license: MIT

@@ -1,8 +1,29 @@
-# XPay Labs Node.js SDK
+# XPay Labs Node.js SDK — Self-Hosted Crypto Payment Gateway for Node.js
 
 English | [中文](README.zh.md)
 
-Official Node.js SDK for the XPay Labs cryptocurrency payment gateway.
+**XPay Labs Node.js SDK** is the official Node.js/TypeScript client for the [XPay Labs](https://www.xpaylabs.com) self-hosted, non-custodial crypto payment gateway. Accept USDT/USDC on TRON (TRC20), 20+ EVM chains (Ethereum, BNB Chain, Polygon, Arbitrum, Optimism, Base), and SUI with zero gateway fees.
+
+This SDK gives Node.js developers full access to the XPay Labs REST API — create collection/payout orders, verify HMAC-signed webhooks, and query supported tokens — while your private keys stay on your own infrastructure.
+
+| Feature | XPay Labs | BitPay | Coinbase Commerce |
+|---------|-----------|--------|-------------------|
+| Transaction Fees | **0%** (gas only) | 1% per tx | 0.8% + $25/mo |
+| Custody Model | **Non-custodial** | Custodial | Custodial |
+| Supported Chains | **TRON, EVM, SUI** (20+ chains) | BTC, ETH, LTC | ETH, Base |
+| Deployment | **Self-hosted** (Docker) | Cloud (SaaS) | Cloud (SaaS) |
+| SDK Support | **Node.js + Java** | PHP, Python | Node.js |
+| Mempool Detection | **1–6 seconds** | N/A (block only) | N/A (block only) |
+
+## Features
+
+- Create cryptocurrency collection orders (merchant receives crypto)
+- Create cryptocurrency payout orders (merchant sends crypto)
+- Real-time order status queries
+- HMAC-SHA256 webhook verification with timestamp validation
+- Full TypeScript type definitions
+- Axios-based HTTP client with configurable timeouts
+- Comprehensive error handling
 
 ## Installation
 
@@ -11,15 +32,6 @@ npm install @xpaylabs/node-sdk
 # or
 yarn add @xpaylabs/node-sdk
 ```
-
-## Features
-
-- Create cryptocurrency payout orders (merchant sends crypto to user)
-- Create cryptocurrency collection orders (merchant receives crypto from user)
-- Check order status
-- Get supported cryptocurrencies and chains
-- Verify and parse webhook notifications
-- TypeScript support with full type definitions
 
 ## Quick Start
 
@@ -30,29 +42,22 @@ import { XPay } from '@xpaylabs/node-sdk';
 const xpay = new XPay({
   apiKey: 'your-api-token',
   apiSecret: 'your-api-secret',
-  baseUrl: 'https://api.xpaylabs.com', // Optional, defaults to production API
+  baseUrl: 'https://api.xpaylabs.com',
 });
 
-// Create a payout order (merchant sends crypto to user)
-async function createPayout() {
+// Create a collection order (merchant receives crypto from user)
+async function createCollection() {
   try {
-    const payout = await xpay.createPayout({
-      amount: 100,
+    const collection = await xpay.createCollection({
+      amount: 50,
       symbol: 'USDT',
       chain: 'TRON',
-      orderId: `order-${Date.now()}`, // Optional order ID
-      uid: 'user123', // Required user ID
-      receiveAddress: 'TXmVthgn6yT1kANGJHTHcbEGEKYDLLGJGp' // User's wallet address
+      orderId: `order-${Date.now()}`,
+      uid: 'user123',
     });
-    
-    console.log('Payout created successfully:');
-    console.log('- Code:', payout.code);
-    console.log('- Message:', payout.msg);
-    console.log('- Order ID:', payout.data?.orderId);
-    
-    return payout;
+    console.log('Collection created:', collection.data?.address);
   } catch (error) {
-    console.error('Error creating payout:', error);
+    console.error('Error:', error.message);
   }
 }
 ```
@@ -65,8 +70,8 @@ async function createPayout() {
 const xpay = new XPay({
   apiKey: 'your-api-token',
   apiSecret: 'your-api-secret',
-  baseUrl: 'https://api.xpaylabs.com', // Optional, defaults to production API
-  timeout: 30000, // Optional, request timeout in milliseconds
+  baseUrl: 'https://api.xpaylabs.com',
+  timeout: 30000,
 });
 ```
 
@@ -79,25 +84,10 @@ const payout = await xpay.createPayout({
   amount: 100,
   symbol: 'USDT',
   chain: 'TRON',
-  orderId: 'order-123', // Optional order ID
-  uid: 'user123', // Required user ID
-  receiveAddress: 'TXmVthgn6yT1kANGJHTHcbEGEKYDLLGJGp' // User's wallet address
+  orderId: 'order-123',
+  uid: 'user123',
+  receiveAddress: 'TXmVthgn6yT1kANGJHTHcbEGEKYDLLGJGp',
 });
-
-// Response structure
-{
-  code: 200,
-  msg: 'Success',
-  data: {
-    orderId: 'order-123',
-    status: 'PENDING',
-    amount: '100.00000000',
-    symbol: 'USDT',
-    chain: 'TRON',
-    uid: 'user123',
-    receiveAddress: 'TXmVthgn6yT1kANGJHTHcbEGEKYDLLGJGp'
-  }
-}
 ```
 
 ### Collection Orders
@@ -109,24 +99,9 @@ const collection = await xpay.createCollection({
   amount: 50,
   symbol: 'USDT',
   chain: 'TRON',
-  orderId: 'order-123', // Optional order ID
-  uid: 'user123', // Required user ID
+  orderId: 'order-123',
+  uid: 'user123',
 });
-
-// Response structure
-{
-  code: 200,
-  msg: 'Success',
-  data: {
-    orderId: 'order-123',
-    address: 'TW8ArYLg5PuwYugmYM8QSux5oXxfUbXA8c',
-    amount: '50.00000000',
-    symbol: 'USDT',
-    chain: 'TRON',
-    uid: 'user123',
-    expiredTime: 1753380643035
-  }
-}
 ```
 
 ### Order Status
@@ -135,32 +110,6 @@ const collection = await xpay.createCollection({
 
 ```typescript
 const orderDetails = await xpay.getOrderStatus('order-123');
-
-// Response structure
-{
-  code: 200,
-  msg: 'Success',
-  data: {
-    orderId: 'order-123',
-    orderType: 'PAYOUT',
-    status: 'SUCCESS',
-    reason: '',
-    transaction: {
-      chain: 'TRON',
-      symbol: 'USDT',
-      blockNum: 73971843,
-      txid: '938d4d20f049bfe45f429f1c3cb62de7c57d3f7505ae691b79aa9a024f23ef87',
-      contractAddress: 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t',
-      from: 'TGyjjt1esfqJWrPncpygq3QA43epY46V8D',
-      to: 'TXmVthgn6yT1kANGJHTHcbEGEKYDLLGJGp',
-      amount: '100.00000000',
-      timestamp: 1752573867000,
-      txGas: 27.35985,
-      confirmedNum: 196573,
-      status: 'SUCCESS'
-    }
-  }
-}
 ```
 
 ### Supported Symbols
@@ -168,25 +117,7 @@ const orderDetails = await xpay.getOrderStatus('order-123');
 #### Get supported symbols
 
 ```typescript
-// Get all supported symbols
 const allSymbols = await xpay.getSupportedSymbols();
-
-// Response structure
-{
-  code: 200,
-  msg: 'Success',
-  data: [
-    {
-      symbol: 'USDT',
-      chain: 'TRON',
-      decimals: 6,
-      contract: 'TR7NHqjeKQxGTCi8q8ZY4pL8otSzgjLj6t',
-      minAmount: 1,
-      maxAmount: 100000
-    },
-    // Other supported symbols...
-  ]
-}
 ```
 
 ### Webhooks
@@ -194,58 +125,56 @@ const allSymbols = await xpay.getSupportedSymbols();
 #### Verify and parse webhook
 
 ```typescript
-// Express.js example
 app.post('/webhook', express.json(), (req, res) => {
   const webhookData = req.body;
   const signature = webhookData.sign;
   const timestamp = webhookData.timestamp.toString();
   const body = JSON.stringify(webhookData);
-  
   const event = xpay.parseWebhook(body, signature, timestamp);
-  
+
   if (!event) {
     return res.status(400).send('Invalid webhook signature or timestamp expired');
   }
-  
-  // Process the webhook event
+
   switch (event.notifyType) {
     case 'ORDER_SUCCESS':
-      // Handle order success notification
-      const orderData = event.data;
-      console.log(`Order ${orderData.orderId} completed successfully!`);
+      console.log(`Order ${event.data.orderId} completed successfully!`);
       break;
     case 'COLLECT_SUCCESS':
-      // Handle collection success notification
-      const collectData = event.data;
-      console.log(`Collection completed successfully! Amount: ${collectData.collectAmount}`);
+      console.log(`Collection completed! Amount: ${event.data.collectAmount}`);
       break;
-    // Handle other notification types...
   }
-  
+
   res.status(200).send('Webhook received');
 });
 ```
 
 ## Error Handling
 
-The SDK throws detailed errors that include status codes and error messages from the API:
-
 ```typescript
 try {
-  const payout = await xpay.createPayout({
-    // ...payout details
-  });
+  const payout = await xpay.createPayout({ /* ... */ });
 } catch (error) {
   console.error(`Error: ${error.message}`);
   console.error(`Status: ${error.status}`);
   console.error(`Code: ${error.code}`);
-  console.error(`Data: ${JSON.stringify(error.data)}`);
 }
 ```
 
 ## TypeScript Support
 
-This SDK includes comprehensive TypeScript definitions for all methods and data structures.
+This SDK includes comprehensive TypeScript definitions for all methods and response structures.
+
+## Related Resources
+
+- [XPay Labs Website](https://www.xpaylabs.com)
+- [Deployment Guide](https://www.xpaylabs.com/docs)
+- [Pricing — 0% Transaction Fees](https://www.xpaylabs.com/pricing)
+- [Java SDK](https://github.com/yan253319066/XPayLabs-java-sdk)
+- [React Example](https://github.com/yan253319066/XPayLabs-example-react)
+- [Vue 3 Example](https://github.com/yan253319066/XPayLabs-example-vue)
+- [BitPay Alternative](https://www.xpaylabs.com/alternatives/bitpay)
+- [Coinbase Commerce Alternative](https://www.xpaylabs.com/alternatives/coinbase-commerce)
 
 ## License
 

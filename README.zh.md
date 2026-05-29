@@ -1,8 +1,20 @@
-# XPay Labs Node.js SDK
+# XPay Labs Node.js SDK — 自托管加密货币支付网关 Node.js 开发包
 
 [English](README.md) | 中文
 
-XPay Labs 加密货币支付网关的官方 Node.js SDK。
+**XPay Labs Node.js SDK** 是 [XPay Labs](https://www.xpaylabs.com) 自托管、非托管加密货币支付网关的官方 Node.js/TypeScript 客户端。支持在 TRON (TRC20)、20+ EVM 链（Ethereum、BNB Chain、Polygon、Arbitrum、Optimism、Base）和 SUI 上接收 USDT/USDC 支付，零网关手续费。
+
+本 SDK 为 Node.js 开发者提供完整的 XPay Labs REST API 访问能力 — 创建收款/付款订单、验证 HMAC 签名 Webhook、查询支持的代币，私钥始终保留在你的基础设施上。
+
+## 功能特性
+
+- 创建加密货币收款订单（商户接收加密货币）
+- 创建加密货币付款订单（商户发送加密货币）
+- 实时订单状态查询
+- HMAC-SHA256 Webhook 签名验证
+- 完整的 TypeScript 类型定义
+- 可配置超时的 Axios HTTP 客户端
+- 全面的错误处理
 
 ## 安装
 
@@ -12,44 +24,26 @@ npm install @xpaylabs/node-sdk
 yarn add @xpaylabs/node-sdk
 ```
 
-## 功能特性
-
-- 创建加密货币付款订单（商户向用户发送加密货币）
-- 创建加密货币收款订单（商户从用户接收加密货币）
-- 查询订单状态
-- 获取支持的加密货币和链
-- 验证和解析 Webhook 通知
-- TypeScript 支持，包含完整的类型定义
-
 ## 快速开始
 
 ```typescript
 import { XPay } from '@xpaylabs/node-sdk';
 
-// 使用 API 凭证初始化 SDK
 const xpay = new XPay({
   apiKey: 'your-api-token',
   apiSecret: 'your-api-secret',
-  baseUrl: 'https://api.xpaylabs.com', // 可选，默认为生产环境 API
+  baseUrl: 'https://api.xpaylabs.com',
 });
 
-// 创建付款订单（商户向用户发送加密货币）
-async function createPayout() {
-  try {
-    const payout = await xpay.createPayout({
-      amount: 100,
-      symbol: 'USDT',
-      chain: 'TRON',
-      orderId: `order-${Date.now()}`,
-      uid: 'user123',
-      receiveAddress: 'TXmVthgn6yT1kANGJHTHcbEGEKYDLLGJGp'
-    });
-
-    console.log('付款订单创建成功');
-    return payout;
-  } catch (error) {
-    console.error('创建付款订单失败:', error);
-  }
+async function createCollection() {
+  const collection = await xpay.createCollection({
+    amount: 50,
+    symbol: 'USDT',
+    chain: 'TRON',
+    orderId: `order-${Date.now()}`,
+    uid: 'user123',
+  });
+  console.log('Collection address:', collection.data?.address);
 }
 ```
 
@@ -68,87 +62,31 @@ const xpay = new XPay({
 
 ### 付款订单
 
-#### 创建付款订单（商户向用户发送加密货币）
-
-```typescript
-const payout = await xpay.createPayout({
-  amount: 100,
-  symbol: 'USDT',
-  chain: 'TRON',
-  orderId: 'order-123',
-  uid: 'user123',
-  receiveAddress: 'TXmVthgn6yT1kANGJHTHcbEGEKYDLLGJGp'
-});
-```
+创建商户向用户发送加密货币的订单。
 
 ### 收款订单
 
-#### 创建收款订单（商户从用户接收加密货币）
-
-```typescript
-const collection = await xpay.createCollection({
-  amount: 50,
-  symbol: 'USDT',
-  chain: 'TRON',
-  orderId: 'order-123',
-  uid: 'user123',
-});
-```
+创建商户从用户接收加密货币的订单。
 
 ### 订单状态
 
-#### 查询订单状态
-
-```typescript
-const orderDetails = await xpay.getOrderStatus('order-123');
-```
+查询指定订单的当前状态。
 
 ### 支持的币种
 
-#### 获取支持的币种
-
-```typescript
-const allSymbols = await xpay.getSupportedSymbols();
-```
+获取平台支持的所有加密货币和链。
 
 ### Webhook
 
-#### 验证和解析 Webhook
+验证和解析 Webhook 通知，支持 HMAC-SHA256 签名验证。
 
-```typescript
-app.post('/webhook', express.json(), (req, res) => {
-  const event = xpay.parseWebhook(body, signature, timestamp);
+## 相关资源
 
-  if (!event) {
-    return res.status(400).send('无效的 webhook 签名或时间戳已过期');
-  }
-
-  switch (event.notifyType) {
-    case 'ORDER_SUCCESS':
-      console.log(`订单 ${event.data.orderId} 已完成！`);
-      break;
-    case 'COLLECT_SUCCESS':
-      console.log(`收款已完成！金额: ${event.data.collectAmount}`);
-      break;
-  }
-
-  res.status(200).send('Webhook received');
-});
-```
-
-## 错误处理
-
-```typescript
-try {
-  const payout = await xpay.createPayout({...});
-} catch (error) {
-  console.error(`错误: ${error.message}`);
-}
-```
-
-## TypeScript 支持
-
-本 SDK 包含所有方法和数据结构的完整 TypeScript 类型定义。
+- [XPay Labs 官网](https://www.xpaylabs.com)
+- [部署文档](https://www.xpaylabs.com/docs)
+- [Java SDK](https://github.com/yan253319066/XPayLabs-java-sdk)
+- [React 示例](https://github.com/yan253319066/XPayLabs-example-react)
+- [Vue 3 示例](https://github.com/yan253319066/XPayLabs-example-vue)
 
 ## 许可证
 
