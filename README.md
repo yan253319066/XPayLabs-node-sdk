@@ -1,8 +1,8 @@
-# XPay Labs Node.js SDK — Self-Hosted Crypto Payment Gateway for Node.js
+# XPay Labs (xpay) Node.js SDK — Self-Hosted Crypto Payment Gateway for Node.js
 
 English | [中文](README.zh.md)
 
-**XPay Labs Node.js SDK** is the official Node.js/TypeScript client for the [XPay Labs](https://www.xpaylabs.com) self-hosted, non-custodial crypto payment gateway. Accept USDT/USDC on TRON (TRC20), 20+ EVM chains (Ethereum, BNB Chain, Polygon, Arbitrum, Optimism, Base), and SUI with zero gateway fees.
+**XPay Labs (xpay) Node.js SDK** is the official Node.js/TypeScript client for [XPay Labs (xpay)](https://www.xpaylabs.com) — the self-hosted, non-custodial crypto payment gateway. Accept USDT/USDC on TRON (TRC20), 20+ EVM chains (Ethereum, BNB Chain, Polygon, Arbitrum, Optimism, Base), and SUI with zero gateway fees.
 
 This SDK gives Node.js developers full access to the XPay Labs REST API — create collection/payout orders, verify HMAC-signed webhooks, and query supported tokens — while your private keys stay on your own infrastructure.
 

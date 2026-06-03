@@ -1,8 +1,8 @@
-# XPay Labs Node.js SDK — 自托管加密货币支付网关 Node.js 开发包
+# XPay Labs（简称 xpay）Node.js SDK — 自托管加密货币支付网关 Node.js 开发包
 
 [English](README.md) | 中文
 
-**XPay Labs Node.js SDK** 是 [XPay Labs](https://www.xpaylabs.com) 自托管、非托管加密货币支付网关的官方 Node.js/TypeScript 客户端。支持在 TRON (TRC20)、20+ EVM 链（Ethereum、BNB Chain、Polygon、Arbitrum、Optimism、Base）和 SUI 上接收 USDT/USDC 支付，零网关手续费。
+**XPay Labs**（简称 **xpay**）Node.js SDK 是 [XPay Labs (xpay)](https://www.xpaylabs.com) 自托管、非托管加密货币支付网关的官方 Node.js/TypeScript 客户端。支持在 TRON (TRC20)、20+ EVM 链（Ethereum、BNB Chain、Polygon、Arbitrum、Optimism、Base）和 SUI 上接收 USDT/USDC 支付，零网关手续费。
 
 本 SDK 为 Node.js 开发者提供完整的 XPay Labs REST API 访问能力 — 创建收款/付款订单、验证 HMAC 签名 Webhook、查询支持的代币，私钥始终保留在你的基础设施上。
 
