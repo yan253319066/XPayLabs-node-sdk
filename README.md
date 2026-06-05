@@ -173,6 +173,7 @@ This SDK includes comprehensive TypeScript definitions for all methods and respo
 - [Java SDK](https://github.com/yan253319066/XPayLabs-java-sdk)
 - [React Example](https://github.com/yan253319066/XPayLabs-example-react)
 - [Vue 3 Example](https://github.com/yan253319066/XPayLabs-example-vue)
+- [x402 Buyer SDK](https://github.com/yan253319066/XPayLabs-x402) — Pay-per-call USDC micropayments for AI agents
 - [BitPay Alternative](https://www.xpaylabs.com/alternatives/bitpay)
 - [Coinbase Commerce Alternative](https://www.xpaylabs.com/alternatives/coinbase-commerce)
 
