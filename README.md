@@ -168,7 +168,7 @@ This SDK includes comprehensive TypeScript definitions for all methods and respo
 ## Related Resources
 
 - [XPay Labs Website](https://www.xpaylabs.com)
-- [Deployment Guide](https://www.xpaylabs.com/docs)
+- [Documentation](https://docs.xpaylabs.com)
 - [Pricing — 0% Transaction Fees](https://www.xpaylabs.com/pricing)
 - [Java SDK](https://github.com/yan253319066/XPayLabs-java-sdk)
 - [React Example](https://github.com/yan253319066/XPayLabs-example-react)

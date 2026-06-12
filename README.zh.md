@@ -83,7 +83,7 @@ const xpay = new XPay({
 ## 相关资源
 
 - [XPay Labs 官网](https://www.xpaylabs.com)
-- [部署文档](https://www.xpaylabs.com/docs)
+- [开发文档](https://docs.xpaylabs.com)
 - [Java SDK](https://github.com/yan253319066/XPayLabs-java-sdk)
 - [React 示例](https://github.com/yan253319066/XPayLabs-example-react)
 - [Vue 3 示例](https://github.com/yan253319066/XPayLabs-example-vue)
