@@ -177,6 +177,11 @@ This SDK includes comprehensive TypeScript definitions for all methods and respo
 - [BitPay Alternative](https://www.xpaylabs.com/alternatives/bitpay)
 - [Coinbase Commerce Alternative](https://www.xpaylabs.com/alternatives/coinbase-commerce)
 
+## Repository
+
+**GitHub:** [yan253319066/XPayLabs-node-sdk](https://github.com/yan253319066/XPayLabs-node-sdk)
+**Gitee (mirror):** [XPayLabs/XPayLabs-node-sdk](https://gitee.com/XPayLabs/XPayLabs-node-sdk)
+
 ## License
 
 MIT
