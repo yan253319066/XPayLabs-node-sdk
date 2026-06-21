@@ -89,6 +89,11 @@ const xpay = new XPay({
 - [Vue 3 示例](https://github.com/yan253319066/XPayLabs-example-vue)
 - [x402 买家 SDK](https://github.com/yan253319066/XPayLabs-x402) — AI 代理按次付费 USDC 微支付
 
+## 仓库
+
+**GitHub:** [yan253319066/XPayLabs-node-sdk](https://github.com/yan253319066/XPayLabs-node-sdk)
+**Gitee（镜像）:** [XPayLabs/XPayLabs-node-sdk](https://gitee.com/XPayLabs/XPayLabs-node-sdk)
+
 ## 许可证
 
 MIT
